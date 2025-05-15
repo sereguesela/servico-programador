@@ -1,446 +1,401 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cursos | Serviço Programado</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="{{ url_for('static', filename='cursos-ebook.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/cursos.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='img/sp-logo.ico') }}">
 </head>
-<style>
-    /* Variáveis de cores */
-:root {
-    --bg-color: #121212;
-    --card-bg: #1e1e1e;
-    --text-color: #e0e0e0;
-    --text-muted: #9e9e9e;
-    --primary: #4a80f0;
-    --primary-hover: #3a70e0;
-    --discord: #5865F2;
-    --discord-hover: #4752c4;
-    --success: #4caf50;
-    --error: #f44336;
-}
 
-/* Reset e estilos base */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-body {
-    font-family: 'Inter', sans-serif;
-    background-color: var(--bg-color);
-    color: var(--text-color);
-    line-height: 1.6;
-    scroll-behavior: smooth;
-}
-
-/* Header simplificado */
-.simple-header {
-    text-align: center;
-    padding: 2rem 1rem;
-    background-color: var(--card-bg);
-    border-bottom: 3px solid var(--primary);
-}
-
-.simple-header h1 {
-    font-size: 2.5rem;
-    margin-bottom: 0.5rem;
-    color: var(--primary);
-}
-
-.subtitle {
-    color: var(--text-muted);
-    font-size: 1.1rem;
-    margin-bottom: 2rem;
-}
-
-/* Navegação */
-.simple-nav ul {
-    display: flex;
-    justify-content: center;
-    list-style: none;
-    flex-wrap: wrap;
-    gap: 1rem;
-    margin-top: 1.5rem;
-}
-
-.nav-link {
-    color: var(--text-color);
-    text-decoration: none;
-    padding: 0.5rem 1rem;
-    border-radius: 4px;
-    transition: all 0.2s ease;
-}
-
-.nav-link:hover {
-    background-color: rgba(74, 128, 240, 0.1);
-    color: var(--primary);
-}
-
-.discord-link {
-    background-color: var(--discord);
-    color: white;
-    border-radius: 4px;
-    padding: 0.5rem 1rem;
-    text-decoration: none;
-    font-weight: 500;
-    transition: background-color 0.2s ease;
-}
-
-.discord-link:hover {
-    background-color: var(--discord-hover);
-}
-
-/* Conteúdo principal */
-.simple-main {
-    max-width: 1200px;
-    margin: 2rem auto;
-    padding: 0 1rem;
-}
-
-.simple-section {
-    margin-bottom: 3rem;
-    padding: 1.5rem;
-    background-color: var(--card-bg);
-    border-radius: 8px;
-}
-
-.simple-section h2 {
-    color: var(--primary);
-    margin-bottom: 1rem;
-    font-size: 1.8rem;
-}
-
-.simple-section p {
-    margin-bottom: 1.5rem;
-    color: var(--text-muted);
-}
-
-/* Cards de features */
-.features {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 1.5rem;
-    margin-top: 2rem;
-}
-
-.feature-card {
-    background-color: rgba(30, 30, 30, 0.6);
-    padding: 1.5rem;
-    border-radius: 8px;
-    border-left: 3px solid var(--primary);
-    transition: transform 0.2s ease;
-}
-
-.feature-card:hover {
-    transform: translateY(-5px);
-}
-
-.feature-icon {
-    font-size: 2rem;
-    margin-bottom: 1rem;
-}
-
-.feature-card h3 {
-    margin-bottom: 0.5rem;
-    color: var(--primary);
-}
-
-/* Lista de serviços */
-.service-list {
-    list-style: none;
-    margin-top: 2rem;
-}
-
-.service-list li {
-    padding: 1.5rem;
-    margin-bottom: 1rem;
-    background-color: rgba(30, 30, 30, 0.6);
-    border-radius: 8px;
-    border-left: 3px solid var(--primary);
-}
-
-.service-list h3 {
-    color: var(--primary);
-    margin-bottom: 0.5rem;
-}
-
-/* Seção de contato */
-.contact-options {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2rem;
-    margin-top: 2rem;
-}
-
-.contact-card {
-    background-color: rgba(30, 30, 30, 0.6);
-    padding: 1.5rem;
-    border-radius: 8px;
-}
-
-.contact-card h3 {
-    color: var(--primary);
-    margin-bottom: 0.5rem;
-}
-
-.contact-card p {
-    margin-bottom: 1rem;
-}
-
-/* Formulário */
-.simple-form {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-}
-
-.simple-form input,
-.simple-form textarea {
-    padding: 0.8rem;
-    background-color: var(--bg-color);
-    border: 1px solid #333;
-    color: var(--text-color);
-    border-radius: 4px;
-    font-family: 'Inter', sans-serif;
-}
-
-.simple-form textarea {
-    min-height: 120px;
-    resize: vertical;
-}
-
-.simple-form input:focus,
-.simple-form textarea:focus {
-    outline: none;
-    border-color: var(--primary);
-    box-shadow: 0 0 0 2px rgba(74, 128, 240, 0.3);
-}
-
-/* Botões */
-.simple-button {
-    padding: 0.8rem 1.5rem;
-    border: none;
-    border-radius: 4px;
-    font-weight: 500;
-    cursor: pointer;
-    transition: background-color 0.2s ease;
-    font-family: 'Inter', sans-serif;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-}
-
-.simple-button {
-    background-color: var(--primary);
-    color: white;
-}
-
-.simple-button:hover {
-    background-color: var(--primary-hover);
-}
-
-.discord-button {
-    background-color: var(--discord);
-    width: 100%;
-}
-
-.discord-button:hover {
-    background-color: var(--discord-hover);
-}
-
-/* Mensagens flash */
-.flash-messages {
-    list-style: none;
-    margin-top: 1.5rem;
-}
-
-.flash-success {
-    color: var(--success);
-    padding: 1rem;
-    background-color: rgba(76, 175, 80, 0.1);
-    border-left: 3px solid var(--success);
-    border-radius: 4px;
-}
-
-.flash-error {
-    color: var(--error);
-    padding: 1rem;
-    background-color: rgba(244, 67, 54, 0.1);
-    border-left: 3px solid var(--error);
-    border-radius: 4px;
-}
-
-/* Footer */
-.simple-footer {
-    text-align: center;
-    padding: 2rem 1rem;
-    background-color: var(--card-bg);
-    margin-top: 3rem;
-}
-
-.footer-links {
-    margin-top: 1rem;
-}
-
-.footer-links a {
-    color: var(--text-muted);
-    text-decoration: none;
-    transition: color 0.2s ease;
-}
-
-.footer-links a:hover {
-    color: var(--primary);
-}
-
-/* Responsividade */
-@media (max-width: 768px) {
-    .simple-header h1 {
-        font-size: 2rem;
-    }
-    
-    .simple-nav ul {
-        flex-direction: column;
-        align-items: center;
-    }
-    
-    .nav-link, .discord-link {
-        display: block;
-        width: 100%;
-        max-width: 300px;
-    }
-}
-</style>
 <body>
-    <header class="simple-header">
-        <h1>Cursos Online</h1>
-        <p class="subtitle">Aprenda com uma seleção de vídeos e playlists</p>
-        
-        <nav class="simple-nav">
-            <ul>
-                <li><a href="/" class="nav-link">Home</a></li>
-                <li><a href="#programacao" class="nav-link">Programação</a></li>
-                <li><a href="#ferramentas" class="nav-link">Ferramentas</a></li>
-                <li><a href="#carreira" class="nav-link">Carreira</a></li>
-                <li><a href="ebook.html" class="nav-link">E-books</a></li>
-            </ul>
-        </nav>
+    <!-- Botão de voltar ao topo -->
+    <button id="back-to-top" class="back-to-top" aria-label="Voltar ao topo">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <!-- Cursor personalizado -->
+    <div class="cursor"></div>
+    <div class="cursor-follower"></div>
+
+    <!-- Preloader -->
+    <div class="preloader">
+        <div class="spinner">
+            <div class="spinner-inner"></div>
+        </div>
+    </div>
+
+    <header class="courses-header">
+        <div class="header-content">
+            <div class="logo-container animate__animated animate__fadeInDown">
+                <h1 class="logo">Cursos <span>Online</span></h1>
+                <p class="subtitle">Aprenda com uma seleção de vídeos e playlists</p>
+            </div>
+
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="/" class="nav-link hover-underline">Home</a></li>
+                    <li><a href="#programacao" class="nav-link hover-underline">Programação</a></li>
+                    <li><a href="#ferramentas" class="nav-link hover-underline">Ferramentas</a></li>
+                    <li><a href="#carreira" class="nav-link hover-underline">Carreira</a></li>
+                    <li><a href="./ebooks" class="nav-link hover-underline">E-books</a></li>
+                    <li><a href="https://discord.gg/qYMQ53wWVx" class="discord-btn pulse" target="_blank">
+                        <i class="fab fa-discord"></i> Discord
+                    </a></li>
+                </ul>
+                <div class="hamburger" id="hamburger">
+                    <div class="bar"></div>
+                    <div class="bar"></div>
+                    <div class="bar"></div>
+                </div>
+            </nav>
+        </div>
+
+        <div class="header-wave">
+            <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
+                <path d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z" opacity=".25" fill="var(--primary)"></path>
+                <path d="M0,0V15.81C13,36.92,27.64,56.86,47.69,72.05,99.41,111.27,165,111,224.58,91.58c31.15-10.15,60.09-26.07,89.67-39.8,40.92-19,84.73-46,130.83-49.67,36.26-2.85,70.9,9.42,98.6,31.56,31.77,25.39,62.32,62,103.63,73,40.44,10.79,81.35-6.69,119.13-24.28s75.16-39,116.92-43.05c59.73-5.85,113.28,22.88,168.9,38.84,30.2,8.66,59,6.17,87.09-7.5,22.43-10.89,48-26.93,60.65-49.24V0Z" opacity=".5" fill="var(--primary)"></path>
+                <path d="M0,0V5.63C149.93,59,314.09,71.32,475.83,42.57c43-7.64,84.23-20.12,127.61-26.46,59-8.63,112.48,12.24,165.56,35.4C827.93,77.22,886,95.24,951.2,90c86.53-7,172.46-45.71,248.8-84.81V0Z" fill="var(--primary)"></path>
+            </svg>
+        </div>
     </header>
 
-    <main class="simple-main">
-        <section class="simple-section">
-            <h2>Aprenda Online</h2>
-            <p>Selecione abaixo os cursos e playlists que preparamos para você.</p>
-            
-            <!-- <div class="search-box">
-                <input type="text" placeholder="Pesquisar cursos...">
-                <button class="simple-button">Buscar</button>
-            </div> -->
+    <main class="courses-main">
+        <section class="intro-section animate__animated animate__fadeIn">
+            <div class="container">
+                <h2 class="section-title"><span>Aprenda</span> Online</h2>
+                <p class="section-description">Selecione abaixo os cursos e playlists que preparamos cuidadosamente para você.</p>
+            </div>
         </section>
 
-        <section id="programacao" class="simple-section">
-            <h2>Programação</h2>
-            <div class="course-grid">
-                <div class="course-card">
-                    <div class="video-container">
-                        <iframe src="https://www.youtube.com/embed/videoseries?list=PLHz_AreHm4dlKP6QQCekuIPky1CiwmdI6" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="width: 500px; height: 300px;"></iframe>
+        <section id="programacao" class="courses-section">
+            <div class="container">
+                <h2 class="section-title"><span>Cursos de</span> Programação</h2>
+                <p class="section-description">Domine as linguagens e tecnologias mais demandadas do mercado.</p>
+
+                <div class="courses-grid">
+                    <div class="course-card" data-aos="fade-up">
+                        <div class="video-container">
+                            <iframe src="https://www.youtube.com/embed/videoseries?list=PLHz_AreHm4dlKP6QQCekuIPky1CiwmdI6" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                            <div class="play-overlay">
+                                <i class="fas fa-play"></i>
+                            </div>
+                        </div>
+                        <div class="course-content">
+                            <h3>Curso de Python</h3>
+                            <p>Playlist completa para iniciantes com projetos práticos</p>
+                            <div class="course-meta">
+                                <span><i class="fas fa-video"></i> 22 vídeos</span>
+                                <span><i class="fas fa-clock"></i> 8 horas</span>
+                            </div>
+                            <div class="course-level">
+                                <span class="level-beginner">Iniciante</span>
+                                <div class="progress-bar">
+                                    <div class="progress" style="width: 30%;"></div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <h3>Curso de Python</h3>
-                    <p>Playlist completa para iniciantes</p>
-                    <div class="course-meta">
-                        <span>22 vídeos</span>
-                        <span>8 horas</span>
+                    
+                    <div class="course-card" data-aos="fade-up" data-aos-delay="100">
+                        <div class="video-container">
+                            <iframe src="https://www.youtube.com/embed/videoseries?list=PLx4x_zx8csUg_AxxbVWHEyAJ6cBdsYc0T&si=aUWzuFDbzapaOX6x" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                            <div class="play-overlay">
+                                <i class="fas fa-play"></i>
+                            </div>
+                        </div>
+                        <div class="course-content">
+                            <h3>JavaScript Moderno</h3>
+                            <p>ES6+, Node.js, Express e projetos reais</p>
+                            <div class="course-meta">
+                                <span><i class="fas fa-video"></i> 15 vídeos</span>
+                                <span><i class="fas fa-clock"></i> 6.5 horas</span>
+                            </div>
+                            <div class="course-level">
+                                <span class="level-intermediate">Intermediário</span>
+                                <div class="progress-bar">
+                                    <div class="progress" style="width: 65%;"></div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                </div>
-                
-                <div class="course-card">
-                    <div class="video-container">
-                        <iframe src="https://www.youtube.com/embed/videoseries?list=PLx4x_zx8csUg_AxxbVWHEyAJ6cBdsYc0T&si=aUWzuFDbzapaOX6x" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="width: 500px; height: 300px;"></iframe>
-                    </div>
-                    <h3>JavaScript Moderno</h3>
-                    <p>ES6+, Node.js e Express</p>
-                    <div class="course-meta">
-                        <span>15 vídeos</span>
-                        <span>6.5 horas</span>
-                    </div>
-                </div>
-                
-                <div class="course-card">
-                    <div class="video-container">
-                        <iframe src="https://www.youtube.com/embed/videoseries?list=PLy-ECpq3hjkj14Ed0ALhqSi2N_3jUAu1y&si=Ds7Rh4C9VkZT8U_g" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="width: 500px; height: 300px;"></iframe>
-                    </div>
-                    <h3>Desenvolvimento Web</h3>
-                    <p>HTML, CSS e JavaScript</p>
-                    <div class="course-meta">
-                        <span>30 vídeos</span>
-                        <span>12 horas</span>
+                    
+                    <div class="course-card" data-aos="fade-up" data-aos-delay="200">
+                        <div class="video-container">
+                            <iframe src="https://www.youtube.com/embed/videoseries?list=PLy-ECpq3hjkj14Ed0ALhqSi2N_3jUAu1y&si=Ds7Rh4C9VkZT8U_g" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                            <div class="play-overlay">
+                                <i class="fas fa-play"></i>
+                            </div>
+                        </div>
+                        <div class="course-content">
+                            <h3>Desenvolvimento Web</h3>
+                            <p>HTML5, CSS3, JavaScript e frameworks modernos</p>
+                            <div class="course-meta">
+                                <span><i class="fas fa-video"></i> 30 vídeos</span>
+                                <span><i class="fas fa-clock"></i> 12 horas</span>
+                            </div>
+                            <div class="course-level">
+                                <span class="level-beginner">Iniciante</span>
+                                <div class="progress-bar">
+                                    <div class="progress" style="width: 25%;"></div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section id="ferramentas" class="simple-section">
-            <h2>Ferramentas</h2>
-            <div class="course-grid">
-                <div class="course-card">
-                    <div class="video-container">
-                        <iframe src="https://www.youtube.com/embed/videoseries?list=PLcoYAcR89n-qq1vGRbaUiV6Q9puy0qigW" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="width: 500px; height: 300px;"></iframe>
+        <section id="ferramentas" class="courses-section bg-light">
+            <div class="container">
+                <h2 class="section-title"><span>Ferramentas</span> Essenciais</h2>
+                <p class="section-description">Aprenda as ferramentas que todo desenvolvedor precisa dominar.</p>
+
+                <div class="courses-grid">
+                    <div class="course-card" data-aos="fade-up">
+                        <div class="video-container">
+                            <iframe src="https://www.youtube.com/embed/videoseries?list=PLcoYAcR89n-qq1vGRbaUiV6Q9puy0qigW" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                            <div class="play-overlay">
+                                <i class="fas fa-play"></i>
+                            </div>
+                        </div>
+                        <div class="course-content">
+                            <h3>Git e GitHub</h3>
+                            <p>Controle de versão completo para projetos individuais e em equipe</p>
+                            <div class="course-meta">
+                                <span><i class="fas fa-video"></i> 10 vídeos</span>
+                                <span><i class="fas fa-clock"></i> 4 horas</span>
+                            </div>
+                            <div class="course-level">
+                                <span class="level-beginner">Iniciante</span>
+                                <div class="progress-bar">
+                                    <div class="progress" style="width: 40%;"></div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <h3>Git e GitHub</h3>
-                    <p>Controle de versão completo</p>
-                    <div class="course-meta">
-                        <span>10 vídeos</span>
-                        <span>4 horas</span>
-                    </div>
-                </div>
-                
-                <div class="course-card">
-                    <div class="video-container">
-                        <iframe src="https://www.youtube.com/embed/videoseries?list=PL2b2uvKR5s-Hx3byi3qZY_HhPPw9U0e6x&si=z2vuhcj6gw2-0A8i" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="width: 500px; height: 300px;"></iframe>
-                    </div>
-                    <h3>Figma Básico</h3>
-                    <p>Design de interfaces</p>
-                    <div class="course-meta">
-                        <span>8 vídeos</span>
-                        <span>3 horas</span>
+                    
+                    <div class="course-card" data-aos="fade-up" data-aos-delay="100">
+                        <div class="video-container">
+                            <iframe src="https://www.youtube.com/embed/videoseries?list=PL2b2uvKR5s-Hx3byi3qZY_HhPPw9U0e6x&si=z2vuhcj6gw2-0A8i" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                            <div class="play-overlay">
+                                <i class="fas fa-play"></i>
+                            </div>
+                        </div>
+                        <div class="course-content">
+                            <h3>Figma Básico</h3>
+                            <p>Design de interfaces e prototipação para desenvolvedores</p>
+                            <div class="course-meta">
+                                <span><i class="fas fa-video"></i> 8 vídeos</span>
+                                <span><i class="fas fa-clock"></i> 3 horas</span>
+                            </div>
+                            <div class="course-level">
+                                <span class="level-beginner">Iniciante</span>
+                                <div class="progress-bar">
+                                    <div class="progress" style="width: 20%;"></div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section id="carreira" class="simple-section">
-            <h2>Carreira</h2>
-            <div class="course-grid">
-                <div class="course-card">
-                    <div class="video-container">
-                        <iframe src="https://www.youtube.com/embed/videoseries?list=PLMdYygf53DP7YZiFUtGTWJJlvynRyrna-" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="width: 500px; height: 300px;"></iframe>
-                    </div>
-                    <h3>Como ser Dev</h3>
-                    <p>Guia de carreira em TI</p>
-                    <div class="course-meta">
-                        <span>12 vídeos</span>
-                        <span>5 horas</span>
+        <section id="carreira" class="courses-section">
+            <div class="container">
+                <h2 class="section-title"><span>Desenvolvimento</span> de Carreira</h2>
+                <p class="section-description">Dicas e estratégias para crescer na área de tecnologia.</p>
+
+                <div class="courses-grid">
+                    <div class="course-card" data-aos="fade-up">
+                        <div class="video-container">
+                            <iframe src="https://www.youtube.com/embed/videoseries?list=PLMdYygf53DP7YZiFUtGTWJJlvynRyrna-" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                            <div class="play-overlay">
+                                <i class="fas fa-play"></i>
+                            </div>
+                        </div>
+                        <div class="course-content">
+                            <h3>Como ser Dev</h3>
+                            <p>Guia completo de carreira em tecnologia da informação</p>
+                            <div class="course-meta">
+                                <span><i class="fas fa-video"></i> 12 vídeos</span>
+                                <span><i class="fas fa-clock"></i> 5 horas</span>
+                            </div>
+                            <div class="course-level">
+                                <span class="level-all">Todos os níveis</span>
+                                <div class="progress-bar">
+                                    <div class="progress" style="width: 75%;"></div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section class="simple-section contribute">
-            <h2>Quer Contribuir?</h2>
-            <p>Tem uma playlist ou curso para compartilhar com a comunidade? Envie para nós!</p>
-            <a href="https://discord.gg/qYMQ53wWVx" class="simple-button" target="_blank">Compartilhar no nosso Discord</a>
+        <section class="contribute-section bg-light">
+            <div class="container">
+                <div class="contribute-card" data-aos="zoom-in">
+                    <div class="contribute-icon">
+                        <i class="fas fa-hands-helping"></i>
+                    </div>
+                    <h2>Quer Contribuir?</h2>
+                    <p>Tem uma playlist ou curso para compartilhar com a comunidade? Envie para nós!</p>
+                    <a href="https://discord.gg/qYMQ53wWVx" class="contribute-btn" target="_blank">
+                        <i class="fab fa-discord"></i> Compartilhar no nosso Discord
+                    </a>
+                </div>
+            </div>
         </section>
     </main>
 
-    <footer class="simple-footer">
-        <p>© 2025 Serviço Programado - Todos os direitos reservados.</p>
-        <!-- <p class="footer-links">
-            <a href="#">Termos de Uso</a> | 
-            <a href="#">Política de Privacidade</a>
-        </p> -->
+    <footer class="main-footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <h3 class="footer-logo">Serviço <span>Programado</span></h3>
+                    <p>Comunidade de desenvolvimento do Discord</p>
+                    <div class="social-links">
+                        <a href="https://discord.gg/qYMQ53wWVx" target="_blank" aria-label="Discord"><i class="fab fa-discord"></i></a>
+                        <a href="#" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+
+                <div class="footer-links">
+                    <h4>Links Rápidos</h4>
+                    <ul>
+                        <li><a href="/"><i class="fas fa-chevron-right"></i> Home</a></li>
+                        <li><a href="#programacao"><i class="fas fa-chevron-right"></i> Programação</a></li>
+                        <li><a href="#ferramentas"><i class="fas fa-chevron-right"></i> Ferramentas</a></li>
+                        <li><a href="#carreira"><i class="fas fa-chevron-right"></i> Carreira</a></li>
+                        <li><a href="./ebooks"><i class="fas fa-chevron-right"></i> E-books</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-newsletter">
+                    <h4>Receba Atualizações</h4>
+                    <p>Assine para ser notificado sobre novos cursos.</p>
+                    <form class="newsletter-form">
+                        <input type="email" placeholder="Seu e-mail">
+                        <button type="submit"><i class="fas fa-paper-plane"></i></button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2025 Serviço Programado. Todos os direitos reservados.</p>
+                <div class="footer-legal">
+                    <a href="#">Termos de Serviço</a>
+                    <a href="#">Política de Privacidade</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-wave">
+            <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
+                <path d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z" opacity=".25" fill="var(--primary)"></path>
+                <path d="M0,0V15.81C13,36.92,27.64,56.86,47.69,72.05,99.41,111.27,165,111,224.58,91.58c31.15-10.15,60.09-26.07,89.67-39.8,40.92-19,84.73-46,130.83-49.67,36.26-2.85,70.9,9.42,98.6,31.56,31.77,25.39,62.32,62,103.63,73,40.44,10.79,81.35-6.69,119.13-24.28s75.16-39,116.92-43.05c59.73-5.85,113.28,22.88,168.9,38.84,30.2,8.66,59,6.17,87.09-7.5,22.43-10.89,48-26.93,60.65-49.24V0Z" opacity=".5" fill="var(--primary)"></path>
+                <path d="M0,0V5.63C149.93,59,314.09,71.32,475.83,42.57c43-7.64,84.23-20.12,127.61-26.46,59-8.63,112.48,12.24,165.56,35.4C827.93,77.22,886,95.24,951.2,90c86.53-7,172.46-45.71,248.8-84.81V0Z" fill="var(--primary)"></path>
+            </svg>
+        </div>
     </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
+    <script>
+        // Inicializa AOS (Animate On Scroll)
+        AOS.init({
+            duration: 800,
+            once: true
+        });
+
+        // Preloader
+        window.addEventListener('load', function() {
+            const preloader = document.querySelector('.preloader');
+            gsap.to(preloader, {
+                opacity: 0,
+                duration: 0.5,
+                onComplete: () => preloader.style.display = 'none'
+            });
+        });
+
+        // Cursor personalizado
+        const cursor = document.querySelector('.cursor');
+        const cursorFollower = document.querySelector('.cursor-follower');
+        
+        document.addEventListener('mousemove', (e) => {
+            gsap.to(cursor, {
+                x: e.clientX,
+                y: e.clientY,
+                duration: 0.1
+            });
+            
+            gsap.to(cursorFollower, {
+                x: e.clientX,
+                y: e.clientY,
+                duration: 0.3
+            });
+        });
+        
+        // Efeito hover nos links
+        const hoverElements = document.querySelectorAll('a, button, .course-card, .contribute-card');
+        hoverElements.forEach(el => {
+            el.addEventListener('mouseenter', () => {
+                cursor.classList.add('cursor-active');
+                cursorFollower.classList.add('cursor-follower-active');
+            });
+            
+            el.addEventListener('mouseleave', () => {
+                cursor.classList.remove('cursor-active');
+                cursorFollower.classList.remove('cursor-follower-active');
+            });
+        });
+
+        // Botão de voltar ao topo
+        const backToTop = document.getElementById('back-to-top');
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                backToTop.classList.add('show');
+            } else {
+                backToTop.classList.remove('show');
+            }
+        });
+        
+        backToTop.addEventListener('click', (e) => {
+            e.preventDefault();
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // Menu mobile
+        const hamburger = document.getElementById('hamburger');
+        const nav = document.querySelector('.main-nav ul');
+        
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            nav.classList.toggle('active');
+        });
+
+        // Efeito hover nos cards de curso
+        const courseCards = document.querySelectorAll('.course-card');
+        courseCards.forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                const playOverlay = card.querySelector('.play-overlay');
+                playOverlay.classList.add('visible');
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                const playOverlay = card.querySelector('.play-overlay');
+                playOverlay.classList.remove('visible');
+            });
+        });
+    </script>
 </body>
 </html>
